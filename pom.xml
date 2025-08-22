@@ -3,4 +3,10 @@
   <groupId>br.com.impacta</groupId>
   <artifactId>lab-java-oo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+  </properties>
+  
 </project>

@@ -2,6 +2,7 @@ compile = "javac -classpath .:target/dependency/* -d . $(find . -type f -name '*
 run = "java -classpath .:target/dependency/* Main"
 entrypoint = "src/main/java/br/com/impacta/Main.java"
 hidden = ["**/*.class"]
+modules = ["java-graalvm22.3"]
 
 [packager]
 language = "java"
@@ -19,7 +20,7 @@ start = "jdt-language-server"
 language = "java"
 
 [nix]
-channel = "stable-22_11"
+channel = "stable-25_05"
 
 [debugger]
 support = true
@@ -60,12 +61,24 @@ mainClass = "Main"
 
 [deployment]
 build = [
-  "javac",
-  "-classpath",
-  ".:target/dependency/*",
-  "-d",
-  ".",
-  "$(find . -type f -name '*.java')",
+  "sh",
+  "-c",
+  "javac -classpath .:target/dependency/* -d . $(find . -type f -name '*.java')",
 ]
-run = ["java", "-classpath", ".:target/dependency/*", "Main"]
+run = ["sh", "-c", "java -classpath .:target/dependency/* Main"]
 deploymentTarget = "cloudrun"
+
+[workflows]
+
+[[workflows.workflow]]
+name = "build and run"
+mode = "sequential"
+author = 6267514
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "javac -classpath .:target/dependency/* -d . $(find . -type f -name '*.java')"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "java br.com.impacta.Main"
