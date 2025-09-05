@@ -1,113 +1,132 @@
 package br.com.impacta;
 
 public class Locadora {
+	private BancoDeDados bancoDeDados;
 
-	private Carro[] carros = new Carro[6];
-	
-	public Locadora() {
-		Carro hb20 = new Carro("hb20", "hyundai", 50, 0.3, true, "hatch");
-		Carro gol = new Carro("gol", "volkswagen", 60, 0.4, true, "hatch");
-		Carro uno = new Carro("uno", "fiat", 70, 0.5, true, "hatch");
-		Carro fiesta = new Carro("fiesta", "ford", 80, 0.6, true, "hatch");
-		Carro ka = new Carro("ka", "ford", 90, 0.7, true, "hatch");
-		Carro toro = new Carro("toro", "fiat", 120, 0.8, true, "caminhonete");
-		
-		carros[0] = hb20;
-		carros[1] = gol;
-		carros[2] = uno;
-		carros[3] = fiesta;
-		carros[4] = ka;
-		carros[5] = toro;
+	public Locadora(BancoDeDados bancoDeDados) {
+		this.bancoDeDados = bancoDeDados;
 	}
-	
-	public Carro[] getCarros() {
-		return this.carros;
-	}
-	
+
 	public void listarTodosVeiculos() {
-        System.out.println("Listando todos os veiculos:");
-        for (Carro carro : carros) {
-            carro.imprimeInfos();
-        }
-    }
-	
+		System.out.println("Listando todos os veiculos:");
+		for (Veiculo veiculo : bancoDeDados.buscarTodosVeiculos()) {
+			veiculo.imprimeInfos();
+		}
+	}
+
 	public void listarVeiculosDisponiveis() {
-        System.out.println("Listando veiculos disponiveis:");
-        for (Carro carro : carros) {
-            if (carro.isDisponivel()) {
-                carro.imprimeInfos();
-            }
-        }
-    }
-	
-	public Carro buscarCarroPorModelo(String modelo) {
-        for (Carro carro : carros) {
-            if (carro.getModelo().equalsIgnoreCase(modelo)) {
-                return carro;
-            }
-        }
-        return null;
-    }
-	
+		System.out.println("Listando veiculos disponiveis:");
+		for (Veiculo veiculo : bancoDeDados.buscarTodosVeiculos()) {
+			if (veiculo.isDisponivel()) {
+				veiculo.imprimeInfos();
+			}
+		}
+	}
+
+	public Veiculo buscarVeiculoPorModelo(String modelo) {
+		for (Veiculo veiculo : bancoDeDados.buscarTodosVeiculos()) {
+			if (veiculo.getModelo().equalsIgnoreCase(modelo)) {
+				return veiculo;
+			}
+		}
+		return null;
+	}
+
 	public void alugarVeiculo(String modelo, int dias) {
-        Carro carro = buscarCarroPorModelo(modelo);
-        
-        if (carro == null) {
-            System.out.println("Carro não encontrado!");
-            return;
-        }
-        
-        if (!carro.isDisponivel()) {
-            System.out.println("Carro não está disponível!");
-            return;
-        }
-        
-        double valorTotal = carro.calculoValorTotalAluguel(dias);
-        carro.alugar();
-        
-        System.out.println("O valor total do aluguel sera: " + valorTotal);
-        System.out.println("Carro " + modelo + " alugado com sucesso!");
-    }
+		Veiculo veiculo = buscarVeiculoPorModelo(modelo);
+
+		if (veiculo == null) {
+			System.out.println("Veiculos não encontrado!");
+			return;
+		}
+
+		if (!veiculo.isDisponivel()) {
+			System.out.println("Veiculos não está disponível!");
+			return;
+		}
+
+		double valorTotal = veiculo.calculoValorTotalAluguel(dias);
+		veiculo.alugar();
+
+		System.out.println("O valor total do aluguel sera: " + valorTotal);
+		System.out.println("Veiculos " + modelo + " alugado com sucesso!");
+	}
+
+	public void devolverVeiculo(String modelo) {
+		Veiculo veiculo = buscarVeiculoPorModelo(modelo);
+
+		if (veiculo == null) {
+			System.out.println("Veiculos não encontrado!");
+			return;
+		}
+
+		if (veiculo.isDisponivel()) {
+			System.out.println("Este Veiculos não está alugado!");
+			return;
+		}
+
+		veiculo.devolver();
+		System.out.println("O Veiculo " + modelo + " foi devolvido com sucesso");
+	}
+
+	public void listarVeiculosParaDevolucao() {
+		System.out.println("Os veiculos disponiveis para devolucao sao:");
+		for (Veiculo veiculo : bancoDeDados.buscarTodosVeiculos()) {
+			if (!veiculo.isDisponivel()) {
+				veiculo.imprimeInfos();
+			}
+		}
+	}
+
+	public void buscarVeiculosPorTipo(String tipo) {
+		System.out.println("Veiculos do tipo: " + tipo);
+		for (Veiculo veiculo : bancoDeDados.buscarTodosVeiculos()) {
+			if (veiculo instanceof Carro carro && carro.getTipo().equalsIgnoreCase(tipo)) {
+				carro.imprimeInfos();
+			}
+		}
+	}
+
+	public void imprimeMenuLocadora() {
+		System.out.println("=".repeat(10));
+		System.out.println(
+				"Digite a opcao desejada\n 1 - listar veiculos \n 2 - listar veiculos disponiveis \n 3 - Alugar um veiculo \n 4 - Devolver o veiculo \n 5 - Buscar veiculos por tipo \n 6 - Fazer um Test Drive \n 7 - Trocar banco de dados \n 9 - Para sair \n ");
+		System.out.println("=".repeat(10));
+	}
+
+	public void realizarTestDrive(String modelo) {
+		Veiculo veiculo = buscarVeiculoPorModelo(modelo);
+
+		if (veiculo == null) {
+			System.out.println("Veículo não encontrado!");
+			return;
+		}
+
+		if (!veiculo.isDisponivel()) {
+			System.out.println("Veículo não está disponível para test drive!");
+			return;
+		}
+
+		System.out.println("\n INICIANDO TEST DRIVE DO " + modelo.toUpperCase());
+		System.out.println("=".repeat(40));
+
+		veiculo.ligar();
+
+		System.out.println("Consumo médio: " + veiculo.calcularConsumo() + " km/l");
+
+		if (veiculo instanceof Carro) {
+			System.out.println("Acelerando um carro");
+		} else if (veiculo instanceof Moto) {
+			System.out.println("Acelerando uma moto");
+		}
+
+		veiculo.desligar();
+		System.out.println("Test drive finalizado!");
+		System.out.println("=".repeat(40));
+	}
 	
-    public void devolverVeiculo(String modelo) {
-        Carro carro = buscarCarroPorModelo(modelo);
-        
-        if (carro == null) {
-            System.out.println("Carro não encontrado!");
-            return;
-        }
-        
-        if (carro.isDisponivel()) {
-            System.out.println("Este carro não está alugado!");
-            return;
-        }
-        
-        carro.devolver();
-        System.out.println("O carro " + modelo + " foi devolvido com sucesso");
+	public void trocarBancoDeDados(BancoDeDados novoBanco) {
+        this.bancoDeDados = novoBanco;
+        System.out.println("Banco de dados alterado para: " + novoBanco.getNomeBanco());
     }
-    
-    public void listarVeiculosParaDevolucao() {
-        System.out.println("Os veiculos disponiveis para devolucao sao:");
-        for (Carro carro : carros) {
-            if (!carro.isDisponivel()) {
-                carro.imprimeInfos();
-            }
-        }
-    }
-    
-    public void buscarVeiculosPorTipo(String tipo) {
-        System.out.println("Veiculos do tipo: " + tipo);
-        for (Carro carro : carros) {
-            if (carro.getTipo().equalsIgnoreCase(tipo)) {
-                carro.imprimeInfos();
-            }
-        }
-    }
-    
-    public void imprimeMenuLocadora() {
-    	 System.out.println("=".repeat(10));
-         System.out.println("Digite a opcao desejada\n 1 - listar veiculos \n 2 - listar veiculos disponiveis \n 3 - Alugar um veiculo \n 4 - Devolver o veiculo \n 5 - Buscar veiculos por tipo \n 9 - Para sair \n ");
-         System.out.println("=".repeat(10));
-    }
-	
 }
