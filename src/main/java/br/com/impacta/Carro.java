@@ -32,4 +32,9 @@ public class Carro extends Veiculo {
 		System.out.println("Tipo: " + getTipo());
 	}
 	
+	@Override
+	public String toString() {
+		return super.toString() + "Tipo: " + getTipo();
+	}
+	
 }

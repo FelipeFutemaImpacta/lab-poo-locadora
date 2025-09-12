@@ -32,4 +32,9 @@ public class Moto extends Veiculo {
 		System.out.println("Cilindrada: " + getCilindrada());
 	}
 	
+	@Override
+	public String toString() {
+		return super.toString() + "Cilindrada: " + getCilindrada();
+	}
+	
 }

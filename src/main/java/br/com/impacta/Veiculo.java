@@ -90,4 +90,10 @@ public abstract class Veiculo {
 		double valorSeguro = this.precoSeguro * this.precoDiaria;
 		return (qtdDias * this.precoDiaria) + (qtdDias * valorSeguro);
 	}
+	
+	@Override
+	public String toString() {
+		return "Infos de um Veiculo -> Modelo: "+ this.getModelo() +" Marca: " + this.getMarca() + "Preço da diária: R$ " + this.getPrecoDiaria() +
+			"Status: " + this.isDisponivelFormatado() + "Consumo: " + this.calcularConsumo() + " km/l";
+	}
 }

@@ -7,11 +7,24 @@ public class Locadora {
 		this.bancoDeDados = bancoDeDados;
 	}
 
-	public void listarTodosVeiculos() {
+	public Veiculo[] listarTodosVeiculos() {
 		System.out.println("Listando todos os veiculos:");
-		for (Veiculo veiculo : bancoDeDados.buscarTodosVeiculos()) {
+		Veiculo[] todosVeiculos = bancoDeDados.buscarTodosVeiculos();
+		for (Veiculo veiculo : todosVeiculos) {
 			veiculo.imprimeInfos();
 		}
+		return todosVeiculos;
+	}
+	
+	public Veiculo[] listarTodosVeiculos(boolean imprimeInfo) {
+		System.out.println("Listando todos os veiculos:");
+		Veiculo[] todosVeiculos = bancoDeDados.buscarTodosVeiculos();
+		if (imprimeInfo) {
+			for (Veiculo veiculo : todosVeiculos) {
+				veiculo.imprimeInfos();
+			}			
+		}
+		return todosVeiculos;
 	}
 
 	public void listarVeiculosDisponiveis() {
@@ -90,7 +103,7 @@ public class Locadora {
 	public void imprimeMenuLocadora() {
 		System.out.println("=".repeat(10));
 		System.out.println(
-				"Digite a opcao desejada\n 1 - listar veiculos \n 2 - listar veiculos disponiveis \n 3 - Alugar um veiculo \n 4 - Devolver o veiculo \n 5 - Buscar veiculos por tipo \n 6 - Fazer um Test Drive \n 7 - Trocar banco de dados \n 9 - Para sair \n ");
+				"Digite a opcao desejada\n 1 - listar veiculos \n 2 - listar veiculos disponiveis \n 3 - Alugar um veiculo \n 4 - Devolver o veiculo \n 5 - Buscar veiculos por tipo \n 6 - Fazer um Test Drive \n 7 - Trocar banco de dados \n 8 - Falar via chat \n 9 - Para sair \n ");
 		System.out.println("=".repeat(10));
 	}
 
