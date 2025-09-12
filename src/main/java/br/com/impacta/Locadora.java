@@ -1,5 +1,8 @@
 package br.com.impacta;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Locadora {
 	private BancoDeDados bancoDeDados;
 

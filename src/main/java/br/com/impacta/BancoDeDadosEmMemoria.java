@@ -1,5 +1,8 @@
 package br.com.impacta;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class BancoDeDadosEmMemoria implements BancoDeDados {
 	private Veiculo[] veiculos;
 

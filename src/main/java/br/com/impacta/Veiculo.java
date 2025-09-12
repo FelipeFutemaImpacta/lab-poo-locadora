@@ -1,5 +1,15 @@
 package br.com.impacta;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(
+		use = JsonTypeInfo.Id.DEDUCTION
+	)
+	@JsonSubTypes({
+	    @JsonSubTypes.Type(value = Carro.class),
+	    @JsonSubTypes.Type(value = Moto.class)
+	})
 public abstract class Veiculo {
 	protected String modelo;
 	protected String marca;
@@ -64,6 +74,14 @@ public abstract class Veiculo {
 
 	public String isDisponivelFormatado() {
 		return disponivel ? "Disponível" : "Indisponível";
+	}
+	
+	public double getPrecoSeguro() {
+		return precoSeguro;
+	}
+
+	public void setPrecoSeguro(double precoSeguro) {
+		this.precoSeguro = precoSeguro;
 	}
 
 	public void imprimeInfos() {
