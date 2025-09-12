@@ -93,7 +93,7 @@ public abstract class Veiculo {
 	
 	@Override
 	public String toString() {
-		return "Infos de um Veiculo -> Modelo: "+ this.getModelo() +" Marca: " + this.getMarca() + "Preço da diária: R$ " + this.getPrecoDiaria() +
-			"Status: " + this.isDisponivelFormatado() + "Consumo: " + this.calcularConsumo() + " km/l";
+		return "Infos de um Veiculo -> Modelo: "+ this.getModelo() +" Marca: " + this.getMarca() + " Preço da diária: R$ " + this.getPrecoDiaria() +
+			" Status: " + this.isDisponivelFormatado() + " Consumo: " + this.calcularConsumo() + " km/l ";
 	}
 }

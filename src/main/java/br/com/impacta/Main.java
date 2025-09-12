@@ -120,7 +120,7 @@ public class Main {
                 	todosVeiculos = todosVeiculos + veiculo.toString() + " \n";
                 }
                 
-                Message systemMessage = new SystemMessage("Voce é um assistente de atendimento de uma locadora de veiculos no Brasil. Sempre seja cordial e responda em portugues do Brasil. Abaixo segue as infos de veiculos que temos: \n " + todosVeiculos);
+                Message systemMessage = new SystemMessage("Voce é um assistente de atendimento de uma locadora de veiculos no Brasil. Sempre seja cordial e responda o maximo de detalhes possiveis em portugues do Brasil. Sempre responda todos os detalhes dos veiculos quando questionado sobre as opcoes que temos e evite devolver questionamentos para o usuario. Abaixo segue as informações de veiculos que temos: \n " + todosVeiculos);
 				Message userMessage = new UserMessage(msg);
 
 				memory.add("1", systemMessage);

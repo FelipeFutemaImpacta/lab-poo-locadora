@@ -1,8 +1,8 @@
 compile = "javac -classpath .:target/dependency/* -d . $(find . -type f -name '*.java')"
-run = "java -classpath .:target/dependency/* Main"
-entrypoint = "src/main/java/br/com/impacta/Main.java"
-hidden = ["**/*.class"]
+run = "mvn clean install spring-boot:run"
 modules = ["java-graalvm22.3"]
+entrypoint = "Main.java"
+hidden = ["**/*.class"]
 
 [packager]
 language = "java"
@@ -14,13 +14,13 @@ packageSearch = true
 pattern = "**/*.java"
 
 [languages.java.languageServer]
-start = "jdt-language-server"
+start = ["jdt-language-server"]
 
 [unitTest]
 language = "java"
 
 [nix]
-channel = "stable-25_05"
+channel = "stable-21_11"
 
 [debugger]
 support = true
@@ -59,26 +59,9 @@ type = "request"
 classPaths = ["."]
 mainClass = "Main"
 
-[deployment]
-build = [
-  "sh",
-  "-c",
-  "javac -classpath .:target/dependency/* -d . $(find . -type f -name '*.java')",
-]
-run = ["sh", "-c", "java -classpath .:target/dependency/* Main"]
-deploymentTarget = "cloudrun"
+[agent]
+expertMode = true
 
-[workflows]
-
-[[workflows.workflow]]
-name = "build and run"
-mode = "sequential"
-author = 6267514
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "javac -classpath .:target/dependency/* -d . $(find . -type f -name '*.java')"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "java br.com.impacta.Main"
+[[ports]]
+localPort = 8080
+externalPort = 8080
