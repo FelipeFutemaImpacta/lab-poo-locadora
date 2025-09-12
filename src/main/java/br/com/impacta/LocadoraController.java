@@ -19,7 +19,7 @@ public class LocadoraController {
 	private Locadora locadora;
 	
 	@GetMapping("/veiculos")
-	public ResponseEntity<Veiculo[]> buscarVeiculos(@RequestParam String modelo) {
+	public ResponseEntity<Veiculo[]> buscarVeiculos(@RequestParam(required = false) String modelo) {
 		
 		if (modelo == null) {
 			return ResponseEntity.ok(locadora.listarTodosVeiculos(false));			
