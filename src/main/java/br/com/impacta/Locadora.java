@@ -17,9 +17,9 @@ public class Locadora {
 	}
 	
 	public Veiculo[] listarTodosVeiculos(boolean imprimeInfo) {
-		System.out.println("Listando todos os veiculos:");
 		Veiculo[] todosVeiculos = bancoDeDados.buscarTodosVeiculos();
 		if (imprimeInfo) {
+			System.out.println("Listando todos os veiculos:");
 			for (Veiculo veiculo : todosVeiculos) {
 				veiculo.imprimeInfos();
 			}			
